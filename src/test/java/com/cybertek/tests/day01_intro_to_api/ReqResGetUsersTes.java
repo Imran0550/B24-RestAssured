@@ -40,6 +40,21 @@ public class ReqResGetUsersTes {
 
        Assertions.assertTrue(response.asPrettyString().contains("Charles"));
        Assertions.assertTrue(response.prettyPrint().contains("5"));
+
+    }
+
+    @Test
+    public void getReqResponseWithWrongUrl(){
+        Response response = RestAssured.get(ConfigurationReader.getProperty("url2"));
+
+        System.out.println(response.getStatusCode());
+
+        Assertions.assertEquals(404,response.statusCode());
+
+        System.out.println(response.asString());
+       // response.prettyPrint();
+
+        Assertions.assertTrue(response.asString().contains("{\n    \n}"));
     }
 
 }
