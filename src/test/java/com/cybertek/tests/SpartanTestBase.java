@@ -13,5 +13,6 @@ public class SpartanTestBase {
         baseURI = ConfigurationReader.getProperty("spartan.url");
 
 
+
     }
 }
