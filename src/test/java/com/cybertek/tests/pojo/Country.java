@@ -19,5 +19,5 @@ public class Country {
     private int regionId;
 
 
-    List<Link> links;
+    private List<Link> links;
 }
