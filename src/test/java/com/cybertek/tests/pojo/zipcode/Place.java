@@ -1,7 +1,9 @@
-package com.cybertek.tests.pojo;
+package com.cybertek.tests.pojo.zipcode;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
+@Data
 public class Place {
 
     @JsonProperty("place name")
