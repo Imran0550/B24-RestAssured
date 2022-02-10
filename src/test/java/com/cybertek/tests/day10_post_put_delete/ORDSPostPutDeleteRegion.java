@@ -4,11 +4,8 @@ import com.cybertek.tests.ORDSTestBase;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import static org.hamcrest.Matchers.*;
 import static io.restassured.RestAssured.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,9 +31,23 @@ public class ORDSPostPutDeleteRegion extends ORDSTestBase {
         System.out.println(region);
         assertEquals(newRegion.get("region_id"),region.get("region_id"));
         assertEquals(newRegion.get("region_name"),region.get("region_name"));
+
+
+
+        // send a get request with region_id and verify it matches the post request map
+      Map<String ,Object> getRegionReq =  given().accept(ContentType.JSON)
+                .when().get("/regions/104").then().assertThat().statusCode(200)
+                .and().contentType(ContentType.JSON)
+                .and().extract().body().as(Map.class);
+
+        System.out.println("getRegionReq = " + getRegionReq);
+
+        //verify  getRequest map is matching newRegion map
+        assertEquals(newRegion.get("region_id"),getRegionReq.get("region_id"));
+        assertEquals(newRegion.get("region_name"),getRegionReq.get("region_name"));
     }
 
     public static void deleteRegion(int regionId){
-        delete("/regions/" + regionId);
+        delete("/regions/" + regionId).then().log().all();
     }
 }
