@@ -2,6 +2,7 @@ package com.cybertek.tests.day11_put_request;
 
 import com.cybertek.tests.SpartanTestBase;
 import com.cybertek.tests.pojo.Spartan;
+import com.cybertek.utilities.RestUtils;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
@@ -62,12 +63,17 @@ public class UpdateSpartanTest extends SpartanTestBase {
     @Test
     public void patchSpartanTest() {
         Map<String,Object> spartanMap = new LinkedHashMap<>();
-        spartanMap.put("phone",904789403978L);
+        spartanMap.put("phone",904799403978L);
 
         given().contentType(ContentType.JSON)
                 .and().pathParam("id",147)
                 .and().body(spartanMap)
                 .when().patch("/api/spartans/{id}")
                 .then().assertThat().statusCode(204);
+
+        Spartan spartan = RestUtils.getSpartan(147);
+
+        assertThat(spartan.getPhone(),is(spartanMap.get("phone")));
+
     }
 }
